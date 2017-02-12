@@ -1,0 +1,23 @@
+CC		:=	gcc
+SDIR	:=	src
+IDIR	:=	-Iinclude `pkg-config --libs --cflags gtk+-2.0`
+CFLAGS	:=	$(IDIR) -Wall -fms-extensions -Ofast -DLIN
+LFLAGS	:=	-lX11 -lGL -lGLU -lm
+ODIR	:=	lbuild
+CFILES	:=	$(wildcard $(SDIR)/*.c)
+#CFILES	:=	$(CFILES) $(wildcard $(SDIR)/linux/*.c)
+OBJS	:=	$(patsubst $(SDIR)/linux/%.c, $(ODIR)/%.o, $(CFILES))
+OBJS	:=	$(patsubst $(SDIR)/%.c, $(ODIR)/%.o, $(OBJS))
+
+
+$(ODIR)/%.o: $(SDIR)/%.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+#$(ODIR)/%.o: $(SDIR)/linux/%.c
+#	$(CC) -c -o $@ $< $(CFLAGS)
+
+padraGB: $(ODIR) $(OBJS)
+	$(CC) $(ODIR)/*.o -o $@ $(IDIR) $(LFLAGS)
+
+$(ODIR):
+	@mkdir $@
