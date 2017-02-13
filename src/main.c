@@ -139,7 +139,7 @@ void start_rom(char *filename){
 	started =1;
 
 	srand(time(NULL));
-	//reset();
+	reset();
 	printf("Reset completed\n");
 
 	GdkColor color ;
