@@ -14,8 +14,10 @@
 //#include "debug.h"
 //#include "keys.h"
 //#include "timer.h"
+#include <globals.h>
+#include <memory.h>
 
-#include "main.h"
+#include <main.h>
 
 GtkWidget *window;
 GdkPixbuf *pixbuf;
@@ -123,17 +125,17 @@ static gboolean key_event(GtkWidget *widget, GdkEventKey *event)
 }
 
 void start_rom(char *filename){
-	printf("Load function call\n");
+	//printf("Load function call\n");
 	//g_signal_handler_disconnect(window, handler_id);
 
-       /* if(!loadROM(filename)) {
+        if(!loadRom(filename)) {
                 printf("Failed to load Rom!\n");
                 quit();
                 return;
         }else{
 		printf("Loaded Rom file!\n");
 		g_free (filename);
-	}*/
+	}
 	started =1;
 
 	srand(time(NULL));
@@ -170,7 +172,6 @@ void start_rom(char *filename){
 }
 
 int choose_rom_file (){
-	printf("in choose rom\n");
         GtkWidget *dialog;
         dialog = gtk_file_chooser_dialog_new ("Open File",
                                       GTK_WINDOW (window),
@@ -183,7 +184,7 @@ int choose_rom_file (){
                 char *filename;
                 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
                 //open_file (filename);
-                printf("%s\n",filename);
+                //printf("%s\n",filename);
                 gtk_widget_destroy (dialog);
 		start_rom(filename);
                 g_free (filename);

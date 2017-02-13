@@ -1,5 +1,22 @@
-#prama once
+#pragma once
 
+// +++++++++++++++++++++ EMU Specific +++++++++++++++++++++++++//
+
+char name[17];
+int romSize;
+int ramSize;
+int mbc1;
+int mbc2;
+int mbc3;
+int mbc4;
+int mbc5;
+
+// +++++++++++++++++++++ Hardware Specific ++++++++++++++++++++//
+
+unsigned char rom[0x200000];
+unsigned char mem[0x8000];
+
+// +++++++++++++++++++++ Memory Locations +++++++++++++++++++++//
 #define LCDC 0xFF40
 #define STAT 0xFF41
 #define SCY 0xFF42
