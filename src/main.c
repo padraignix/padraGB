@@ -12,7 +12,7 @@
 //#include "gpu.h"
 //#include "interrupts.h"
 //#include "debug.h"
-//#include "keys.h"
+#include <keys.h>
 //#include "timer.h"
 #include <globals.h>
 #include <memory.h>
@@ -59,73 +59,72 @@ int screen_mult1 (){
 
 static gboolean key_release_event(GtkWidget *widget, GdkEventKey *event)
 {
-/*	char *test = gdk_keyval_name (event->keyval);
-        //g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-        if(strcmp(test, "z") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.b = 1;
+	char *test = gdk_keyval_name (event->keyval);
+    //g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+    if(strcmp(test, "z") == 0){
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                b_key = 1;
 	}else if(strcmp(test, "x") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.a = 1;
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                a_key = 1;
 	}else if(strcmp(test, "Return") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.start = 1;
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                start_key = 1;
 	}else if(strcmp(test, "BackSpace") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.select = 1;
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                select_key = 1;
 	}else if(strcmp(test, "Up") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.up = 1;
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                up_key = 1;
 	}else if(strcmp(test, "Down") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.down = 1;
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                down_key = 1;
 	}else if(strcmp(test, "Left") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.left = 1;
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                left_key = 1;
 	}else if(strcmp(test, "Right") == 0){
-		//g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
-                keys.right = 1;
-	}*/	
+		g_printerr("%s - Released\n", gdk_keyval_name (event->keyval));
+                right_key = 1;
+	}
 return FALSE;
 }
 
 static gboolean key_event(GtkWidget *widget, GdkEventKey *event)
 {
-/*        char *test = gdk_keyval_name (event->keyval);
-    //	g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-        if(strcmp(test, "Escape") == 0){
+    char *test = gdk_keyval_name (event->keyval);
+    //g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+    if(strcmp(test, "Escape") == 0){
                 quit();
-        }else if(strcmp(test, "z") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.b = 0;
+    }else if(strcmp(test, "z") == 0){
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+    			b_key = 0;
 	}else if(strcmp(test, "x") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.a = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                a_key = 0;
 	}else if(strcmp(test, "Return") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.start = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                start_key = 0;
 	}else if(strcmp(test, "BackSpace") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.select = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                select_key = 0;
 	}else if(strcmp(test, "Up") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.up = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                up_key = 0;
 	}else if(strcmp(test, "Down") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.down = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                down_key = 0;
 	}else if(strcmp(test, "Left") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.left = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                left_key = 0;
 	}else if(strcmp(test, "Right") == 0){
-		//g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
-                keys.right = 0;
+		g_printerr("%s - Pressed\n", gdk_keyval_name (event->keyval));
+                right_key = 0;
 	}
-*/	
-     return FALSE;
+    return FALSE;
 }
 
 void start_rom(char *filename){
-	//printf("Load function call\n");
+	printf("Load function call\n");
 	//g_signal_handler_disconnect(window, handler_id);
 
         if(!loadRom(filename)) {
@@ -161,9 +160,10 @@ void start_rom(char *filename){
 		//timerTick(cyclesThisUpdate);
 		//gpuStep();
 		//interruptStep();
+	    cyclesThisUpdate += 4; // required for framework debugging prior to implementing CPU
 		}
 		cyclesThisUpdate = 0 ;
-//		gtk_main_iteration_do(FALSE);
+		gtk_main_iteration_do(FALSE);
 	}
 	
 	quit();
