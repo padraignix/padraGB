@@ -183,8 +183,6 @@ int choose_rom_file (){
         {
                 char *filename;
                 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-                //open_file (filename);
-                //printf("%s\n",filename);
                 gtk_widget_destroy (dialog);
 		start_rom(filename);
                 g_free (filename);
