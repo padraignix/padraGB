@@ -6,6 +6,7 @@
 #include <main.h>
 
 #include <memory.h>
+#include <cpu.h>
 
 unsigned char loadRom(char *filename)
 {
@@ -128,7 +129,7 @@ unsigned char loadRom(char *filename)
 }
 
 
-void reset()
+void initmem()
 {
 
 	//reg.af=0x01B0;

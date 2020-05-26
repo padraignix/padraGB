@@ -3,10 +3,13 @@
 #define argc __argc
 #define argv __argv
 
+#include <cpu.h>
+
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <GL/glu.h>
 #include <gtk/gtk.h>
+#include <stdbool.h>
 
 void quit(void);
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 // +++++++++++++++++++++ EMU Specific +++++++++++++++++++++++++//
 
 char name[17];
@@ -10,6 +12,13 @@ int mbc2;
 int mbc3;
 int mbc4;
 int mbc5;
+
+// +++++++++++++++++++++ CPU Specific +++++++++++++++++++++++++//
+
+
+// +++++++++++++++++++++ Debug Specific ++++++++++++++++++++//
+
+bool debug_toggle;
 
 // +++++++++++++++++++++ Hardware Specific ++++++++++++++++++++//
 

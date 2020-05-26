@@ -7,8 +7,10 @@
 #include <GL/glu.h>
 #include <gtk/gtk.h>
 
+#include <stdbool.h>
+
 //#include "rom.h"
-//#include "cpu.h"
+#include <cpu.h>
 //#include "gpu.h"
 //#include "interrupts.h"
 //#include "debug.h"
@@ -55,6 +57,33 @@ int screen_mult1 (){
         gtk_window_resize(GTK_WINDOW(window), 160*smult,144*smult);
         }
         return 0;
+}
+
+int toggle_debug(){
+
+	if(debug_toggle){
+		debug_toggle = false;
+		g_printerr("Debug Turned Off\n");
+	}
+	else
+	{
+		debug_toggle = true;
+		g_printerr("Debug Turned On\n");
+	}
+	
+}
+
+void print_regs()
+{
+	//testing print registers
+	printf("======================\n");
+	printf("AF - %#06hx\n", print_reg_af());
+	printf("BC - %#06hx\n", print_reg_bc());
+	printf("DE - %#06hx\n", print_reg_de());
+	printf("HL - %#06hx\n", print_reg_hl());
+	printf("SP - %#06hx\n", print_reg_sp());
+	printf("======================\n");
+	return;
 }
 
 static gboolean key_release_event(GtkWidget *widget, GdkEventKey *event)
@@ -138,9 +167,13 @@ void start_rom(char *filename){
 	started =1;
 
 	srand(time(NULL));
-	reset();
-	printf("Reset completed\n");
 
+	//init cpu/mem
+	initcpu();
+	initmem();
+	printf("Reset completed\n");
+	print_regs();
+		
 	GdkColor color ;
         GdkGC *gc;
         gc = gdk_gc_new(window->window);
@@ -207,6 +240,7 @@ int main(int argc, char **argv) {
 	GtkWidget *fileMi;
 	GtkWidget *quitMi;
 	GtkWidget *romMi;
+	GtkWidget *debugMi;
 	GtkWidget *configMi;
 	GtkWidget *romLoadMi;
 	GtkWidget *setupConfMi;
@@ -231,6 +265,7 @@ int main(int argc, char **argv) {
   	fileMi = gtk_menu_item_new_with_label("File");
   	romMi = gtk_menu_item_new_with_label("ROM");
   	configMi = gtk_menu_item_new_with_label("Config");
+	debugMi = gtk_menu_item_new_with_label("Toggle Debug");
 
   	romLoadMi = gtk_menu_item_new_with_label("Load Rom");
   	setupConfMi2 = gtk_menu_item_new_with_label("1X Screen");
@@ -248,6 +283,7 @@ int main(int argc, char **argv) {
   	gtk_menu_shell_append(GTK_MENU_SHELL(menubar), romMi);
 
   	gtk_menu_item_set_submenu(GTK_MENU_ITEM(configMi), fileMenu3);
+	  gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu3), debugMi);
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu3), setupConfMi2);
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu3), setupConfMi3);
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu3), setupConfMi);
@@ -261,6 +297,7 @@ int main(int argc, char **argv) {
   	g_signal_connect(G_OBJECT(setupConfMi2), "activate", G_CALLBACK(screen_mult1), NULL);
   	g_signal_connect(G_OBJECT(setupConfMi3), "activate", G_CALLBACK(screen_mult2), NULL);
   	g_signal_connect(G_OBJECT(setupConfMi), "activate", G_CALLBACK(screen_mult4), NULL);
+  	g_signal_connect(G_OBJECT(debugMi), "activate", G_CALLBACK(toggle_debug), NULL);
 
   	//key press events
   	g_signal_connect(window, "key-press-event", G_CALLBACK(key_event), NULL);
